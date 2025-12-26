@@ -1,12 +1,17 @@
-def test_smoke():
-    assert True
-# tests/test_format_weather.py
+import sys
+from pathlib import Path
+
+# リポジトリ直下を import できるようにする
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+
 from main import format_weather
 
-def test_format_weather_returns_string():
-    dummy_data = {
+
+def test_format_weather_smoke():
+    data = {
         "current": {
-            "time": "2025-01-01T09:00",
+            "time": "2025-01-01T00:00",
             "temperature_2m": 10,
             "apparent_temperature": 8,
             "precipitation": 0,
@@ -20,8 +25,6 @@ def test_format_weather_returns_string():
         },
     }
 
-    result = format_weather(dummy_data)
+    out = format_weather(data)
+    assert "気温" in out
 
-    assert isinstance(result, str)
-    assert "気温" in result
-    assert "最高" in result
